@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Heart for Fizu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #d14d72;
+            --secondary: #ffabab;
+            --accent: #9a1663;
+            --light: #fff9fb;
+            --dark: #333;
+            --text: #5a3e36;
+            --cream: #fff8e1;
+            --parchment: #f9f3e9;
+            --pink-light: #ffeff3;
+            --pink-medium: #ffd6e0;
+            --pink-dark: #ffb6c1;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffeff3 0%, #ffd6e0 100%);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 15px;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="rgba(209, 77, 114, 0.1)" d="M20,20 Q40,5 50,30 T80,20 Q95,40 80,60 T50,80 Q40,95 20,80 Q5,60 20,40 Q5,20 20,20"></path></svg>');
+            background-size: 150px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .container {
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: 1px solid rgba(209, 77, 114, 0.2);
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .tab.active {
+            background: rgba(209, 77, 114, 0.2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Page sections */
+        .page {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Home Page */
+        .hero {
+            text-align: center;
+            padding: 30px 15px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: float 6s linear infinite;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 100%;
+            margin: 0 auto 20px;
+        }
+        
+        /* Message Box */
+        .message-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f9f0f3 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary);
+            margin-bottom: 25px;
+        }
+        
+        .message-box h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .message {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .message p {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .signature {
+            text-align: center;
+            font-style: italic;
+            color: var(--primary);
+            font-weight: 500;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+        
+        /* Poetry Page */
+        .poetry-hero {
+            text-align: center;
+            padding: 30px 15px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .poetry-hero h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .poem-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .poem-card {
+            background: var(--pink-light);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--pink-medium);
+            transition: all 0.3s ease;
+        }
+        
+        .poem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .poem-card::before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: rgba(209, 77, 114, 0.1);
+            line-height: 1;
+        }
+        
+        .poem-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .poem-title::before {
+            content: "❧";
+            position: absolute;
+            left: 0;
+            top: -5px;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .poem-content {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--text);
+            padding-left: 40px;
+        }
+        
+        .poem-content p {
+            margin-bottom: 15px;
+            text-indent: 20px;
+        }
+        
+        .poem-author {
+            text-align: right;
+            font-style: italic;
+            margin-top: 20px;
+            color: var(--accent);
+            font-weight: 500;
+            padding-right: 20px;
+        }
+        
+        .quote-section {
+            margin: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .quote-section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+        }
+        
+        .quotes-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .quote-card {
+            background: var(--pink-light);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border: 1px solid var(--pink-medium);
+        }
+        
+        .quote-card::before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: rgba(209, 77, 114, 0.1);
+            line-height: 1;
+        }
+        
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin-top: 10px;
+            padding: 0 15px;
+            font-style: italic;
+        }
+        
+        .quote-author {
+            text-align: right;
+            margin-top: 15px;
+            font-weight: 500;
+            color: var(--accent);
+        }
+        
+        .personal-message {
+            background: linear-gradient(135deg, var(--pink-light), var(--pink-medium));
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border-top: 3px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .personal-message h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .personal-message p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 15px;
+        }
+        
+        .signature {
+            text-align: center;
+            font-style: italic;
+            color: var(--primary);
+            font-weight: 500;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+            font-size: 0.9rem;
+        }
+        
+        .footer-heart {
+            color: var(--primary);
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Video Player Styles */
+        #video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #video-player {
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(209, 77, 114, 0.5);
+        }
+        
+        #video-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        #video-close:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .video-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(80px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-80px) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Confetti Effect */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            animation: confetti-fall 3s ease-out forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Party Animation */
+        .party-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .party-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: var(--accent);
+            text-align: center;
+            animation: partyPulse 0.5s infinite alternate;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        
+        @keyframes partyPulse {
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+            100% { transform: scale(1.2); text-shadow: 0 0 30px rgba(255, 255, 255, 1); }
+        }
+        
+        /* Responsive adjustments */
+        @media (min-width: 500px) {
+            .tabs {
+                gap: 10px;
+            }
+            
+            .tab {
+                min-width: 100px;
+                font-size: 1rem;
+            }
+            
+            .quotes-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            
+            .container {
+                max-width: 700px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .tabs {
+                gap: 15px;
+                margin-top: 20px;
+            }
+            
+            .page {
+                padding: 30px;
+            }
+            
+            .hero h1, .poetry-hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .poem-title {
+                font-size: 2rem;
+            }
+            
+            .poem-content {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Personalization Elements */
+        .fizu-name {
+            color: var(--accent);
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .nickname {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary);
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confetti-container"></div>
+    
+    <!-- Party Animation Container -->
+    <div class="party-container" id="party-container">
+        <div class="party-text">I Love You MORE!</div>
+    </div>
+    
+    <!-- Video Container -->
+    <div id="video-container">
+        <div id="video-close">
+            <i class="fas fa-times"></i>
+        </div>
+        <video id="video-player" controls>
+            <source src="fizuu.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay">
+            <p>For my one and only love...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-heart"></i>
+                <span>My Heart for <span class="fizu-name">Fizu</span></span>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-page="home">Home</div>
+                <div class="tab" data-page="memories">Memories</div>
+                <div class="tab" data-page="poetry">Poetry</div>
+                <div class="tab" data-page="reasons">Reasons</div>
+                <div class="tab" data-page="game">Surprise</div>
+            </div>
+        </div>
+        
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="hearts" id="hearts-container"></div>
+                <h1>To My <span class="fizu-name">Fizu</span></h1>
+                <p class="subtitle">You are the light of my life, and I need you to know how much you mean to me</p>
+            </div>
+            
+            <div class="message-box">
+                <h2><i class="fas fa-heart"></i> My Heartfelt Message</h2>
+                <div class="message">
+                    <p>My dearest <span class="fizu-name">Fizu</span>,</p>
+                    <p>I'm writing this with a heavy heart, knowing that I've hurt you and that you need space right now. I respect your feelings completely, and I want you to know that your happiness means everything to me.</p>
+                    <p>I'm terrified at the thought of losing you, but more than that, I'm devastated that I've caused you pain. You are the most incredible person I've ever known - your kindness, your laughter, and the way you see the world have changed my life forever.</p>
+                    <p>I understand that you need time, and I promise to give you all the space you require. I just needed you to know how deeply I care for you, how much I cherish every moment we've shared, and how committed I am to being better for you.</p>
+                </div>
+                <div class="signature">
+                    <p>With all my love and deepest sincerity,</p>
+                    <p>Your <span class="nickname">Hunny Bunny</span></p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Memories Page -->
+        <section id="memories" class="page">
+            <h2><i class="fas fa-memory"></i> Our Special Memories</h2>
+            <p>These moments with you are etched in my heart forever. Even though we're apart, these memories keep me going.</p>
+            
+            <div style="text-align: center; padding: 40px 20px;">
+                <div class="poem-card">
+                    <h2 class="poem-title">Our Journey</h2>
+                    <div class="poem-content">
+                        <p>Every moment with you is a treasure I hold dear,</p>
+                        <p>From whispered secrets to laughter we share,</p>
+                        <p>Each memory a jewel, perfectly clear,</p>
+                        <p>A testament to how much I care.</p>
+                        <br>
+                        <p>I remember our first date, how you made me smile,</p>
+                        <p>My <span class="fizu-name">Fizu</span>, you've made every moment worthwhile,</p>
+                        <p>With you by my side, life felt so grand,</p>
+                        <p>Holding your hand, in a magical land.</p>
+                    </div>
+                    <div class="poem-author">- For <span class="fizu-name">Fizu</span>, My <span class="nickname">Hunny Bunny</span></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Poetry Page -->
+        <section id="poetry" class="page">
+            <div class="poetry-hero">
+                <h1>Words for <span class="fizu-name">Fizu</span></h1>
+                <p>Poetry that expresses what your presence means to me</p>
+            </div>
+            
+            <div class="poem-container">
+                <div class="poem-card">
+                    <h2 class="poem-title">Your Existence</h2>
+                    <div class="poem-content">
+                        <p>In the quiet moments when the world stands still,</p>
+                        <p>I find myself thinking of you against my will,</p>
+                        <p>Not because I must, but because I do,</p>
+                        <p>For my heart knows no other way to be true.</p>
+                        <br>
+                        <p>Your laughter is a melody, sweet and clear,</p>
+                        <p>A song to my soul that I hold ever dear,</p>
+                        <p>Your kindness a light that brightens my day,</p>
+                        <p>Guiding me forward in every way.</p>
+                        <br>
+                        <p>To be loved by you is my greatest treasure,</p>
+                        <p>A gift beyond measure, beyond all pleasure,</p>
+                        <p>For in your eyes I see my home,</p>
+                        <p>A place where I never feel alone.</p>
+                        <br>
+                        <p>My <span class="fizu-name">Fizu</span>, you're the sun in my sky,</p>
+                        <p>The reason I smile, the tear in my eye,</p>
+                        <p>My <span class="nickname">Hunny Bunny</span>, so sweet and so dear,</p>
+                        <p>I'll love you forever, year after year.</p>
+                    </div>
+                    <div class="poem-author">- Your <span class="nickname">Hunny Bunny</span></div>
+                </div>
+                
+                <div class="poem-card">
+                    <h2 class="poem-title">The Essence of <span class="fizu-name">Fizu</span></h2>
+                    <div class="poem-content">
+                        <p>If I could capture the morning sun,</p>
+                        <p>Or hold the stars when day is done,</p>
+                        <p>Still these would pale compared to thee,</p>
+                        <p>For you are all the world to me.</p>
+                        <br>
+                        <p>Your gentle spirit, pure and bright,</p>
+                        <p>Fills my darkness with your light,</p>
+                        <p>And in your smile I find my peace,</p>
+                        <p>Where all my restless thoughts find cease.</p>
+                        <br>
+                        <p>No grand gesture or spoken word,</p>
+                        <p>Could ever capture what I've heard,</p>
+                        <p>In the silent language of your heart,</p>
+                        <p>That sets my soul and yours apart.</p>
+                        <br>
+                        <p>My <span class="fizu-name">Fizu</span>, my love, my guiding light,</p>
+                        <p>You make my whole world feel so right,</p>
+                        <p>My <span class="nickname">Hunny Bunny</span>, forever true,</p>
+                        <p>I'll spend my whole life loving you.</p>
+                    </div>
+                    <div class="poem-author">- Forever Yours</div>
+                </div>
+            </div>
+            
+            <div class="quote-section">
+                <h2>Words That Remind Me of You</h2>
+                <div class="quotes-container">
+                    <div class="quote-card">
+                        <div class="quote-text">
+                            "I have waited for this opportunity for more than half a century, to repeat to you once again my vow of eternal fidelity and everlasting love."
+                        </div>
+                        <div class="quote-author">- Gabriel García Márquez</div>
+                    </div>
+                    
+                    <div class="quote-card">
+                        <div class="quote-text">
+                            "You have bewitched me, body and soul, and I love, I love, I love you. I never wish to be parted from you from this day on."
+                        </div>
+                        <div class="quote-author">- Jane Austen, Pride and Prejudice</div>
+                    </div>
+                    
+                    <div class="quote-card">
+                        <div class="quote-text">
+                            "I love you not only for what you are, but for what I am when I am with you."
+                        </div>
+                        <div class="quote-author">- Elizabeth Barrett Browning</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="personal-message">
+                <h2>My Dearest <span class="fizu-name">Fizu</span></h2>
+                <p>As I reflect on what you mean to me, I'm reminded of the most beautiful love stories I've ever read. Yet none compare to the story we're writing together.</p>
+                <p>Your existence in my life has transformed the ordinary into the extraordinary. The way you care, the way you laugh, the way you see the world - these are the things that make me feel truly loved and understood.</p>
+                <p>Like the heroines in your favorite novels, you possess a rare combination of strength and tenderness that continues to inspire me every day. I cherish our conversations, our shared silences, and every moment we've spent building something meaningful together.</p>
+                <p>Please know that my love for you is as deep as the ocean and as constant as the stars. I'm honored to be part of your story, and I promise to cherish every chapter we write together.</p>
+                <div class="signature">With all my love, Your <span class="nickname">Hunny Bunny</span></div>
+            </div>
+        </section>
+        
+        <!-- Reasons Page -->
+        <section id="reasons" class="page">
+            <h2><i class="fas fa-star"></i> Why <span class="fizu-name">Fizu</span> is Amazing</h2>
+            <p>Just a few of the countless reasons why you mean the world to me.</p>
+            
+            <div class="poem-container">
+                <div class="poem-card">
+                    <h2 class="poem-title">Reasons I Love <span class="fizu-name">Fizu</span></h2>
+                    <div class="poem-content">
+                        <p>I love the way you see the world,</p>
+                        <p>With eyes that find the beauty in everything,</p>
+                        <p>I love the way your laughter unfurls,</p>
+                        <p>Like joyful bells that make my spirit sing.</p>
+                        <br>
+                        <p>I love your kindness that knows no bound,</p>
+                        <p>Your gentle spirit, pure and true,</p>
+                        <p>In your presence, peace is found,</p>
+                        <p>A sanctuary just for me and you.</p>
+                        <br>
+                        <p>I love the way you challenge me,</p>
+                        <p>To be a better man each day,</p>
+                        <p>You help me become who I'm meant to be,</p>
+                        <p>Guiding me along life's way.</p>
+                        <br>
+                        <p>I love how you make me feel complete,</p>
+                        <p>My <span class="fizu-name">Fizu</span>, you're incredibly sweet,</p>
+                        <p>My <span class="nickname">Hunny Bunny</span>, my heart, my soul,</p>
+                        <p>You make my broken pieces whole.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Surprise Page -->
+        <section id="game" class="page">
+            <div style="text-align: center; padding: 20px;">
+                <div class="poetry-hero">
+                    <h1>Surprise</h1>
+                    <p>Answer this one simple question</p>
+                </div>
+                
+                <div class="poem-card" style="margin-top: 30px;">
+                    <div class="question" style="font-size: 1.8rem; color: var(--accent); margin-bottom: 30px; font-weight: 600;">
+                        <span class="fizu-name">Fizu</span>, do you love me?
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <button id="extreme-yes" style="padding: 15px 30px; font-size: 1.2rem; background: linear-gradient(45deg, #4caf50, #8bc34a); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);">
+                            Extreme Yes
+                        </button>
+                        <button id="yes" style="padding: 15px 30px; font-size: 1.2rem; background: linear-gradient(45deg, #f44336, #ff9800); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);">
+                            Yes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Made with <span class="footer-heart">❤</span> for <span class="fizu-name">Fizu</span>, the most special person in my life</p>
+        </footer>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            const heartCount = 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                
+                // Random position and animation delay
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Create confetti effect
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            container.style.display = 'block';
+            
+            // Create 100 pieces of confetti
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random position and color
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = getRandomColor();
+                
+                // Random size
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                
+                // Random animation duration
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
+                container.appendChild(confetti);
+            }
+            
+            // Hide after animation completes
+            setTimeout(() => {
+                container.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Get random color for confetti
+        function getRandomColor() {
+            const colors = ['#d14d72', '#ffabab', '#9a1663', '#ffb6c1', '#ffd6e0', '#ffeff3'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Show party animation
+        function showPartyAnimation() {
+            const partyContainer = document.getElementById('party-container');
+            partyContainer.style.display = 'flex';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                partyContainer.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Navigation
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Update active tab
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show the selected page
+                const pageId = this.getAttribute('data-page');
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(pageId).classList.add('active');
+                
+                // Recreate hearts for home page
+                if (pageId === 'home') {
+                    createHearts();
+                }
+            });
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            
+            // Get video elements
+            const videoContainer = document.getElementById('video-container');
+            const videoPlayer = document.getElementById('video-player');
+            const videoClose = document.getElementById('video-close');
+            
+            // Handle the "Extreme Yes" button
+            document.getElementById('extreme-yes').addEventListener('click', function() {
+                // Create confetti effect
+                createConfetti();
+                
+                // Show party animation
+                showPartyAnimation();
+                
+                // After 3 seconds, show the video
+                setTimeout(function() {
+                    videoContainer.style.display = 'flex';
+                    videoPlayer.play();
+                }, 3000);
+            });
+            
+            // Handle the "Yes" button
+            document.getElementById('yes').addEventListener('click', function() {
+                // Redirect to Google Drive
+                window.location.href = "https://drive.google.com/drive/folders/1GLwG1PppKfnIh2g1Ed7YXc0QoB-xNz2m";
+            });
+            
+            // Close video player
+            videoClose.addEventListener('click', function() {
+                videoPlayer.pause();
+                videoContainer.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
